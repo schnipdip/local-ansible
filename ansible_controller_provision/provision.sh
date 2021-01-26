@@ -42,9 +42,6 @@ git config --global user.name "schnipdip"
 
 git config --global user.email "cjh30@pct.edu"
 
-git config --global user.password "E32m9zx5"
-
-
 
 #copy files to their appropriate location(s)
 sudo cp /home/vagrant/.git/git/local-ansible/sshd_config /etc/ssh/sshd_config
