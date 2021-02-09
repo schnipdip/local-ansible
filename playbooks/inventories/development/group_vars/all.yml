@@ -1,0 +1,43 @@
+#----- Network Configuration -----#
+
+domain: freeport13.org
+dns_servers:
+  - 10.0.0.0
+  - 10.0.0.1
+
+#----- Applications (Linux) -----#
+
+applications_linux:
+  firefox:
+    - name:
+    - version:
+  chrome:
+    - name:
+    - version:
+  apache:
+    - name:
+    - version:
+
+#----- Applications (Windows) -----#
+
+applications_windows:
+  firefox:
+    - version:
+    - product_id:
+  chrome:
+    - version:
+    - product_id:
+
+#----- Service Accounts -----#
+
+service_accounts:
+  sa_ldap:
+    - username:
+      password:
+  sa_windows:
+    - username:
+      password:
+  sa_cisco:
+    - username:
+      password:
+
