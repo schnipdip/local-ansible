@@ -1,0 +1,22 @@
+# Author: Christopher Herzog
+# Date: 2/08/2021
+# Purpose: Install Netbox
+
+#----- Check Dependencies -----#
+
+- name: Check Dependencies
+  package_facts:
+    manager: "auto"
+
+- name: Check EPEL Repository
+
+
+
+#----- Install Dependencies -----#
+- name: Add EPEL Repository
+  import_role:
+    name: epel
+
+
+#----- Install Netbox -----#
+
