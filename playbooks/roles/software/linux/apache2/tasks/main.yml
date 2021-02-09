@@ -1,0 +1,19 @@
+# Author: Christopher Herzog
+# Date: 2/08/2021
+# Purpose: Install Apache2
+
+#----- Check Dependencies -----#
+- name: Check Packages
+  package_facts:
+    manager: "auto"
+
+#----- Install httpd -----#
+- name: Begin Installing apache2
+  block:
+    - name: Install apache2
+      package:
+        name: apache2
+        state: present
+  when:
+    - "'httpd' not in ansible_facts.packages" or ansible_facts.packages.httpd.version
+

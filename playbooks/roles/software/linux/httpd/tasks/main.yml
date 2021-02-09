@@ -1,0 +1,18 @@
+# Author: Christopher Herzog
+# Date: 2/08/2021
+# Purpose: Install httpd
+
+#----- Check Dependencies -----#
+- name: Check Packages
+  package_facts:
+    manager: "auto"
+
+#----- Install httpd -----#
+- name: Begin Installing httpd
+  block:
+    - name: Install httpd
+      package:
+        name: httpd
+        state: present
+  when:
+    - "'httpd' not in ansible_facts.packages" or ansible_facts.packages.httpd.version
