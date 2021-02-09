@@ -8,19 +8,15 @@
   package_facts:
     manager: "auto"
 
-- name: Begin Installation of httpd if not found
-  block:
-    - name: Install HTTPD
-      import_role:
-        name: httpd
+- name: Install HTTPD
+  import_role:
+    name: httpd
   when:
     - "'httpd' not in ansible_facts.packages"
 
-- name: Begin Installation of apache2 if not found
-  block:
-    - name: Install APACHE2
-      import_role:
-        name: apache2
+- name: Install APACHE2
+  import_role:
+    name: apache2
   when:
     - "'apache2' not in ansible_facts.packages"
 
@@ -29,8 +25,25 @@
 
 - name: Begin Installation of HAProxy
   block:
-    - name: Install HAPROXY
+    - name: Install HAProxy
       package:
         name: haproxy
-        state: present
-  when: "'haproxy' not in ansible_facts.packages" or ansible_facts.pacakges['haproxy'].version != application.haproxy.version 
+        state: present  
+  when: "'haproxy' not in ansible_facts.packages" or ansible_facts.pacakges['haproxy'].version != applications_linux.haproxy.version
+  tags: install_haproxy
+
+#----- Configure HAProxy -----#
+#TODO: Create System Dependent HAProxy Server - support single deployment and/or HA deployment
+
+
+
+
+
+#----- Start HAProxy -----#
+- name: Enable HAProxy Daemon
+  shell: systemctl enable haproxy
+  tags: enable_haproxy
+
+- name: Start HAProxy Daemon
+  shell: systemctl start haproxy
+  tags: start_haproxy

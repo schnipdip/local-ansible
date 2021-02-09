@@ -10,7 +10,8 @@ dns_servers:
 applications_linux:
   haproxy:
     - name: haproxy
-      version:
+      version: 2.2.6-1.fc33
+      key:
   firefox:
     - name:
     - version:
