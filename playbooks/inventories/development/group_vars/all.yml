@@ -8,14 +8,20 @@ dns_servers:
 #----- Applications (Linux) -----#
 
 applications_linux:
+  haproxy:
+    - name: haproxy
+      version:
   firefox:
     - name:
     - version:
   chrome:
     - name:
     - version:
+  httpd:
+    - name: httpd
+      version:
   apache:
-    - name:
+    - name: apache2
     - version:
 
 #----- Applications (Windows) -----#
