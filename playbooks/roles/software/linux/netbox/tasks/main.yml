@@ -8,15 +8,52 @@
   package_facts:
     manager: "auto"
 
-- name: Check EPEL Repository
-
-
-
 #----- Install Dependencies -----#
+
 - name: Add EPEL Repository
   import_role:
     name: epel
 
+- name: Install Packages
+  import_role: "{{ item }}"
+  when: "'{{ item }}' not in ansible_facts.packages" or ansible_facts.packages[{{ item }}].version != applications_linux.{{ item }}.version
+  with_items:
+    - "{{ applications_linux.httpd.name }}"
+    - "{{ applications_linux.git.name }}"
+    - "{{ applications_linux.python36.name }}"
+    - "{{ applications_linux.python36-devel.name }}"
+    - "{{ applications_linux.python3-pip.name }}"
+    - "{{ applications_linux.gcc.name }}"
+    - "{{ applications_linux.openssl-devel.name }}"
+    - "{{ applications_linux.redhat-rpm-config.name }}"
+    - "{{ applications_linux.libxm12-devel.name }}"
+    - "{{ applications_linux.libxslt-devel.name }}"
+    - "{{ applications_linux.libffi-devel.name }}"
 
 #----- Install Netbox -----#
 
+- name: Download Netbox from URL
+  get_url:
+    url: https://github.com/netbox-community/netbox/archive/v{{ applications_linux.netbox.version }}.tar.gz
+    dest: "{{ temp_dir }}"
+
+- name: Unzip Tar
+  unarchive:
+    src: "{{ temp_dir }}"
+    dest: /opt
+
+- name: Create Symbolic Link
+  file:
+    src: /opt/{{ applications_linux.netbox.name }}-{{ applications_linux.netbox.version }}/
+    dest: "{{ applications_linux.netbox.path }}"
+    state: link
+
+#----- Configure Netbox -----#
+
+
+#----- Cleanup -----#
+
+- name: Clean Up Files
+  file:
+    path: "{{ temp_dir }}/v{{ applications_linux.netbox.version }}.tar.gz"
+    state: absent
